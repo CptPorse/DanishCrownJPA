@@ -2,6 +2,7 @@ package model;
 
 import java.util.Date;
 
+// Author: Jens Nyberh Porse
 public class SubOrder
 {
 
