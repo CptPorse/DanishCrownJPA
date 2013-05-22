@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.Nullable;
 public class ProductType
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "producttype_id")
 	private long id;
 	private String description;

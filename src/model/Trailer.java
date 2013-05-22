@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +35,7 @@ import dao.Dao;
 public class Trailer
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "trailer_id")
 	private long id;
 	private String trailerID;
@@ -50,9 +49,8 @@ public class Trailer
 	@Enumerated(EnumType.STRING)
 	private TrailerState trailerState;
 
-	// ikke 100 på det virker
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "loadingbay_id", insertable = true, updatable = true, nullable = true, unique = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "loadingbay_id")
 	private LoadingBay loadingBay;
 
 	@OneToOne
@@ -290,8 +288,10 @@ public class Trailer
 			System.out.println("Looping. Looking at: " + subOrder);
 
 			subOrder.setEarliestLoadingTime(subOrder.getLoadingInfo().getTimeOfLoadingEnd());
-			System.out.println("Setting " + subOrder + " earliestLoadingTime to: " + subOrder.getLoadingInfo().getTimeOfLoadingEnd());
-			LoadingInfo newLoadingInfo = Service.createLoadingInfo(subOrder, subOrder.getLoadingInfo().getLoadingBay());
+			System.out.println("Setting " + subOrder + " earliestLoadingTime to: "
+					+ subOrder.getLoadingInfo().getTimeOfLoadingEnd());
+			LoadingInfo newLoadingInfo = Service.createLoadingInfo(subOrder, subOrder
+					.getLoadingInfo().getLoadingBay());
 			newLoadingInfo.setState(LoadingInfoState.READY_TO_LOAD);
 			subOrder.setHighPriority(true);
 			Service.refreshLoadingBays(subOrder.getProductType());
@@ -311,23 +311,28 @@ public class Trailer
 		case BEING_LOADED:
 			LoadingBay lb = null;
 			for (LoadingInfo li : Dao.getLoadingInfos()) {
-				if (li.getSubOrder().getTrailer() == this && li.getSubOrder().getLoadingInfo().getState() == LoadingInfoState.LOADING) {
+				if (li.getSubOrder().getTrailer() == this
+						&& li.getSubOrder().getLoadingInfo().getState() == LoadingInfoState.LOADING) {
 					lb = li.getLoadingBay();
 				}
 			}
 			string = "<html><table>Trailer: " + trailerID + "<br>" + lb;
 			break;
 		case DEPARTED:
-			string = "<html><table>Trailer: " + trailerID + "<br>Departed: " + Service.getDateToStringTime(timeOfDeparture);
+			string = "<html><table>Trailer: " + trailerID + "<br>Departed: "
+					+ Service.getDateToStringTime(timeOfDeparture);
 			break;
 		case ENROUTE:
-			string = "<html><table>Trailer: " + trailerID + "<br>ETA: " + Service.getDateToStringTime(timeOfArrival);
+			string = "<html><table>Trailer: " + trailerID + "<br>ETA: "
+					+ Service.getDateToStringTime(timeOfArrival);
 			break;
 		case LOADED:
-			string = "<html><table>Trailer: " + trailerID + "<br>Weight: " + weightCurrent + " kg<br>Max: " + weightMax + " kg";
+			string = "<html><table>Trailer: " + trailerID + "<br>Weight: " + weightCurrent
+					+ " kg<br>Max: " + weightMax + " kg";
 			break;
 		default:
-			string = "<html><table>Trailer: " + trailerID + "<br>ETA: " + Service.getDateToStringTime(timeOfArrival);
+			string = "<html><table>Trailer: " + trailerID + "<br>ETA: "
+					+ Service.getDateToStringTime(timeOfArrival);
 			break;
 
 		}

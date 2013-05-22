@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +21,7 @@ import javax.persistence.TemporalType;
 public class SubOrder
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "suborder_id")
 	private long id;
 	private double estimatedWeight;
@@ -40,8 +39,8 @@ public class SubOrder
 	private Trailer trailer;
 
 	//virker måske ikke
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "producttype_id", insertable = true, updatable = true, nullable = true, unique = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "producttype_id")
 	private ProductType productType;
 
 	@OneToOne

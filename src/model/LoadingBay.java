@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ import service.Service;
 public class LoadingBay
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "loadingbay_id")
 	private long id;
 	private int loadingBayNumber;
@@ -37,9 +36,8 @@ public class LoadingBay
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date nextAvailableTime;
 
-	//virker måske ikke
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "producttype_id", insertable = true, updatable = true, nullable = true, unique = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "producttype_id")
 	private ProductType productType;
 
 	@OneToMany(mappedBy = "loadingBay", cascade = CascadeType.ALL)
@@ -136,13 +134,15 @@ public class LoadingBay
 		//If there is no Scheduled loading yet
 		if (loadingInfos.isEmpty()) {
 			nextAvailableTime = earliestLoadingTime;
-			System.out.println("  No LoadingInfo scheduled. Ready at: " + Service.getDateToStringTime(nextAvailableTime));
+			System.out.println("  No LoadingInfo scheduled. Ready at: "
+					+ Service.getDateToStringTime(nextAvailableTime));
 		}
 
 		waitTime = nextAvailableTime.getTime() - earliestLoadingTime.getTime();
 		if (waitTime < 0)
 			waitTime = 0L;
-		System.out.println("  LoadingBay: " + getLoadingBayNumber() + " is Ready at: " + Service.getDateToStringTime(nextAvailableTime));
+		System.out.println("  LoadingBay: " + getLoadingBayNumber() + " is Ready at: "
+				+ Service.getDateToStringTime(nextAvailableTime));
 		return waitTime;
 	}
 
