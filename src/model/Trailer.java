@@ -4,6 +4,25 @@ import gui.SmsDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -12,21 +31,45 @@ import service.Service;
 import dao.Dao;
 
 @NonNullByDefault
+@Entity
+@Table(name = "Trailer")
 public class Trailer
 {
-	//fields
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "trailer_id")
+	private long id;
 	private String trailerID;
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date timeOfArrival;
-	private Date timeOfDeparture = null;
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date timeOfDeparture;
 	private double weightCurrent;
 	private double weightMax;
 
-	//Links
+	@Enumerated(EnumType.STRING)
 	private TrailerState trailerState;
-	private LoadingBay loadingBay = null;
+
+	// ikke 100 på det virker
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "loadingbay_id", insertable = true, updatable = true, nullable = true, unique = true)
+	private LoadingBay loadingBay;
+
+	@OneToOne
+	@JoinColumn(name = "driver_id")
 	private Driver driver;
-	private ArrayList<ProductType> productTypes = new ArrayList<ProductType>();
-	private ArrayList<SubOrder> subOrders = new ArrayList<SubOrder>();
+
+	@ManyToMany
+	@JoinTable(name = "Trailer_Producttype", joinColumns = @JoinColumn(name = "trailer_id"), inverseJoinColumns = @JoinColumn(name = "producttype_id"))
+	private List<ProductType> productTypes = new ArrayList<ProductType>();
+
+	@OneToMany(mappedBy = "trailer", cascade = CascadeType.ALL)
+	private List<SubOrder> subOrders = new ArrayList<SubOrder>();
+
+	public Trailer()
+	{
+
+	}
 
 	public Trailer(String trailerID, double weightMax, Date timeOfArrival)
 	{
@@ -247,10 +290,8 @@ public class Trailer
 			System.out.println("Looping. Looking at: " + subOrder);
 
 			subOrder.setEarliestLoadingTime(subOrder.getLoadingInfo().getTimeOfLoadingEnd());
-			System.out.println("Setting " + subOrder + " earliestLoadingTime to: "
-					+ subOrder.getLoadingInfo().getTimeOfLoadingEnd());
-			LoadingInfo newLoadingInfo = Service.createLoadingInfo(subOrder, subOrder
-					.getLoadingInfo().getLoadingBay());
+			System.out.println("Setting " + subOrder + " earliestLoadingTime to: " + subOrder.getLoadingInfo().getTimeOfLoadingEnd());
+			LoadingInfo newLoadingInfo = Service.createLoadingInfo(subOrder, subOrder.getLoadingInfo().getLoadingBay());
 			newLoadingInfo.setState(LoadingInfoState.READY_TO_LOAD);
 			subOrder.setHighPriority(true);
 			Service.refreshLoadingBays(subOrder.getProductType());
@@ -270,28 +311,23 @@ public class Trailer
 		case BEING_LOADED:
 			LoadingBay lb = null;
 			for (LoadingInfo li : Dao.getLoadingInfos()) {
-				if (li.getSubOrder().getTrailer() == this
-						&& li.getSubOrder().getLoadingInfo().getState() == LoadingInfoState.LOADING) {
+				if (li.getSubOrder().getTrailer() == this && li.getSubOrder().getLoadingInfo().getState() == LoadingInfoState.LOADING) {
 					lb = li.getLoadingBay();
 				}
 			}
 			string = "<html><table>Trailer: " + trailerID + "<br>" + lb;
 			break;
 		case DEPARTED:
-			string = "<html><table>Trailer: " + trailerID + "<br>Departed: "
-					+ Service.getDateToStringTime(timeOfDeparture);
+			string = "<html><table>Trailer: " + trailerID + "<br>Departed: " + Service.getDateToStringTime(timeOfDeparture);
 			break;
 		case ENROUTE:
-			string = "<html><table>Trailer: " + trailerID + "<br>ETA: "
-					+ Service.getDateToStringTime(timeOfArrival);
+			string = "<html><table>Trailer: " + trailerID + "<br>ETA: " + Service.getDateToStringTime(timeOfArrival);
 			break;
 		case LOADED:
-			string = "<html><table>Trailer: " + trailerID + "<br>Weight: " + weightCurrent
-					+ " kg<br>Max: " + weightMax + " kg";
+			string = "<html><table>Trailer: " + trailerID + "<br>Weight: " + weightCurrent + " kg<br>Max: " + weightMax + " kg";
 			break;
 		default:
-			string = "<html><table>Trailer: " + trailerID + "<br>ETA: "
-					+ Service.getDateToStringTime(timeOfArrival);
+			string = "<html><table>Trailer: " + trailerID + "<br>ETA: " + Service.getDateToStringTime(timeOfArrival);
 			break;
 
 		}

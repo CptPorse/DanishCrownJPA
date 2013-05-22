@@ -2,18 +2,53 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
 import service.Service;
 
 //Author: Jens Nyberg Porse
+@NonNullByDefault
+@Entity
+@Table(name = "Loadingbay")
 public class LoadingBay
 {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "loadingbay_id")
+	private long id;
 	private int loadingBayNumber;
 	private boolean isloading;
-	private ProductType productType;
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date nextAvailableTime;
-	private ArrayList<LoadingInfo> loadingInfos;
+
+	//virker måske ikke
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "producttype_id", insertable = true, updatable = true, nullable = true, unique = true)
+	private ProductType productType;
+
+	@OneToMany(mappedBy = "loadingBay", cascade = CascadeType.ALL)
+	private List<LoadingInfo> loadingInfos;
+
+	public LoadingBay()
+	{
+
+	}
 
 	public LoadingBay(int loadingBayNumber, ProductType productType)
 	{
@@ -101,15 +136,13 @@ public class LoadingBay
 		//If there is no Scheduled loading yet
 		if (loadingInfos.isEmpty()) {
 			nextAvailableTime = earliestLoadingTime;
-			System.out.println("  No LoadingInfo scheduled. Ready at: "
-					+ Service.getDateToStringTime(nextAvailableTime));
+			System.out.println("  No LoadingInfo scheduled. Ready at: " + Service.getDateToStringTime(nextAvailableTime));
 		}
 
 		waitTime = nextAvailableTime.getTime() - earliestLoadingTime.getTime();
 		if (waitTime < 0)
 			waitTime = 0L;
-		System.out.println("  LoadingBay: " + getLoadingBayNumber() + " is Ready at: "
-				+ Service.getDateToStringTime(nextAvailableTime));
+		System.out.println("  LoadingBay: " + getLoadingBayNumber() + " is Ready at: " + Service.getDateToStringTime(nextAvailableTime));
 		return waitTime;
 	}
 

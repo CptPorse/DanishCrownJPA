@@ -2,19 +2,56 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 // Author: Jens Nyberh Porse
+@Entity
+@Table(name = "Suborder")
 public class SubOrder
 {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "suborder_id")
+	private long id;
 	private double estimatedWeight;
 	private int estimatedLoadingTime;
 	private boolean isLoaded = false;
 	private boolean highPriority = false;
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date earliestLoadingTime;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
 	private Order order;
+
+	@ManyToOne
+	@JoinColumn(name = "trailer_id")
 	private Trailer trailer;
+
+	//virker måske ikke
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "producttype_id", insertable = true, updatable = true, nullable = true, unique = true)
 	private ProductType productType;
+
+	@OneToOne
+	@JoinColumn(name = "loadinginfo_id")
 	private LoadingInfo loadingInfo;
+
+	public SubOrder()
+	{
+
+	}
 
 	public SubOrder(double estimatedWeight, Trailer trailer, ProductType productType)
 	{

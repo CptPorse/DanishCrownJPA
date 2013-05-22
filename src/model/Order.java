@@ -2,15 +2,43 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.eclipse.jdt.annotation.NonNullByDefault;
+
+@NonNullByDefault
+@Entity
+@Table(name = "\"Order\"")
 public class Order
 {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "order_id")
+	private long id;
 	private int orderNumber;
 	private double weightMarginPercent = 2;
 	private double weightMarginKilo;
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date loadingDate;
-	private ArrayList<SubOrder> subOrders = new ArrayList<SubOrder>();
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private List<SubOrder> subOrders = new ArrayList<SubOrder>();
+
+	public Order()
+	{
+
+	}
 
 	public Order(int orderNumber, Date loadingDate)
 	{
