@@ -16,7 +16,7 @@ public class SystemStartUp
 	public static void main(String[] args)
 	{
 
-		StartUpService.startUpData();
+//		StartUpService.startUpData();
 		Service.sortTrailerArrival();
 		for (Trailer trailer : Dao.getTrailer()) {
 			Service.setSubOrderEarliestLoadingTime(trailer);

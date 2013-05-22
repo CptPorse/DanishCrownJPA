@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+import dao.Dao;
+
 @NonNullByDefault
 @Entity
 @Table(name = "Producttype")
@@ -49,6 +51,7 @@ public class ProductType
 	public void setminuteToKiloRatio(double minuteToKiloRatio)
 	{
 		this.minuteToKiloRatio = minuteToKiloRatio;
+		Dao.updateDatabase(this);
 	}
 
 	public String getDescription()
@@ -59,6 +62,7 @@ public class ProductType
 	public void setDescription(String description)
 	{
 		this.description = description;
+		Dao.updateDatabase(this);
 	}
 
 	@Nullable
@@ -70,11 +74,13 @@ public class ProductType
 	public void addTrailer(Trailer trailer)
 	{
 		trailers.add(trailer);
+		Dao.updateDatabase(this);
 	}
 
 	public void removeTrailer(Trailer trailer)
 	{
 		trailers.remove(trailer);
+		Dao.updateDatabase(this);
 	}
 
 	@Override

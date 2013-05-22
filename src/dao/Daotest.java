@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import model.Driver;
@@ -16,20 +15,6 @@ public class Daotest
 {
 	public static void main(String[] args)
 	{
-
-		ArrayList<Driver> drivers = Dao.getDrivers();
-
-		System.out.println(Dao.getProductTypes());
-		System.out.println(drivers);
-		System.out.println(Dao.getLoadingBays());
-		System.out.println(Dao.getOrders());
-		System.out.println(Dao.getSubOrders());
-		System.out.println(Dao.getTrailer());
-		System.out.println(Dao.getLoadingInfos());
-
-		Dao.removeDriver(drivers.get(0));
-
-		System.out.println(Dao.getDrivers());
 
 		Driver d1 = Service.createDriver("Peter Hansen", "22 37 54 98", "EH 95 128");
 		Driver d2 = Service.createDriver("Søren Overgaard", "22 52 12 71", "GH 81 411");
@@ -125,82 +110,82 @@ public class Daotest
 		LoadingBay lb6 = Service.createLoadingBay(6, p3);
 		LoadingBay lb7 = Service.createLoadingBay(7, p3);
 		LoadingBay lb8 = Service.createLoadingBay(7, p3);
-//
-//		t1.addProductType(p1);
-//		t2.addProductType(p1);
-//		t3.addProductType(p1);
-//		t4.addProductType(p1);
-//		t5.addProductType(p1);
-//		t5.addProductType(p2);
-//		t6.addProductType(p1);
-//		t6.addProductType(p3);
-//		t7.addProductType(p2);
-//		t8.addProductType(p2);
-//		t9.addProductType(p2);
-//		t10.addProductType(p2);
-//		t11.addProductType(p2);
-//		t11.addProductType(p3);
-//		t12.addProductType(p3);
-//		t13.addProductType(p3);
-//		t14.addProductType(p3);
-//		t15.addProductType(p3);
-//		t16.addProductType(p3);
-//		t16.addProductType(p2);
-//
-//		t1.setDriver(d1);
-//		t2.setDriver(d2);
-//		t3.setDriver(d3);
-//		t4.setDriver(d4);
-//		t5.setDriver(d5);
-//		t6.setDriver(d6);
-//		t7.setDriver(d7);
-//		t8.setDriver(d8);
-//		t9.setDriver(d9);
-//		t10.setDriver(d10);
-//		t11.setDriver(d11);
-//		t12.setDriver(d12);
-//		t13.setDriver(d13);
-//		t14.setDriver(d14);
-//		t15.setDriver(d15);
-//		t16.setDriver(d16);
-//
-//		d1.setTrailer(t1);
-//		d2.setTrailer(t2);
-//		d3.setTrailer(t3);
-//		d4.setTrailer(t4);
-//		d5.setTrailer(t5);
-//		d6.setTrailer(t6);
-//		d7.setTrailer(t7);
-//		d8.setTrailer(t8);
-//		d9.setTrailer(t9);
-//		d10.setTrailer(t10);
-//		d11.setTrailer(t11);
-//		d12.setTrailer(t12);
-//		d13.setTrailer(t13);
-//		d14.setTrailer(t14);
-//		d15.setTrailer(t15);
-//		d16.setTrailer(t16);
-//
-//		o1.addSubOrder(so1);
-//		o2.addSubOrder(so2);
-//		o3.addSubOrder(so3);
-//		o4.addSubOrder(so4);
-//		o5.addSubOrder(so5);
-//		o5.addSubOrder(so6);
-//		o6.addSubOrder(so7);
-//		o6.addSubOrder(so8);
-//		o7.addSubOrder(so9);
-//		o8.addSubOrder(so10);
-//		o9.addSubOrder(so11);
-//		o10.addSubOrder(so12);
-//		o11.addSubOrder(so13);
-//		o11.addSubOrder(so14);
-//		o12.addSubOrder(so14);
-//		o13.addSubOrder(so15);
-//		o14.addSubOrder(so16);
-//		o15.addSubOrder(so17);
-//		o16.addSubOrder(so18);
-//		o17.addSubOrder(so19);
-//		o15.addSubOrder(so20);
+
+		t1.addProductType(p1);
+		t2.addProductType(p1);
+		t3.addProductType(p1);
+		t4.addProductType(p1);
+		t5.addProductType(p1);
+		t5.addProductType(p2);
+		t6.addProductType(p1);
+		t6.addProductType(p3);
+		t7.addProductType(p2);
+		t8.addProductType(p2);
+		t9.addProductType(p2);
+		t10.addProductType(p2);
+		t11.addProductType(p2);
+		t11.addProductType(p3);
+		t12.addProductType(p3);
+		t13.addProductType(p3);
+		t14.addProductType(p3);
+		t15.addProductType(p3);
+		t16.addProductType(p3);
+		t16.addProductType(p2);
+
+		t1.setDriver(d1);
+		t2.setDriver(d2);
+		t3.setDriver(d3);
+		t4.setDriver(d4);
+		t5.setDriver(d5);
+		t6.setDriver(d6);
+		t7.setDriver(d7);
+		t8.setDriver(d8);
+		t9.setDriver(d9);
+		t10.setDriver(d10);
+		t11.setDriver(d11);
+		t12.setDriver(d12);
+		t13.setDriver(d13);
+		t14.setDriver(d14);
+		t15.setDriver(d15);
+		t16.setDriver(d16);
+
+		d1.setTrailer(t1);
+		d2.setTrailer(t2);
+		d3.setTrailer(t3);
+		d4.setTrailer(t4);
+		d5.setTrailer(t5);
+		d6.setTrailer(t6);
+		d7.setTrailer(t7);
+		d8.setTrailer(t8);
+		d9.setTrailer(t9);
+		d10.setTrailer(t10);
+		d11.setTrailer(t11);
+		d12.setTrailer(t12);
+		d13.setTrailer(t13);
+		d14.setTrailer(t14);
+		d15.setTrailer(t15);
+		d16.setTrailer(t16);
+
+		o1.addSubOrder(so1);
+		o2.addSubOrder(so2);
+		o3.addSubOrder(so3);
+		o4.addSubOrder(so4);
+		o5.addSubOrder(so5);
+		o5.addSubOrder(so6);
+		o6.addSubOrder(so7);
+		o6.addSubOrder(so8);
+		o7.addSubOrder(so9);
+		o8.addSubOrder(so10);
+		o9.addSubOrder(so11);
+		o10.addSubOrder(so12);
+		o11.addSubOrder(so13);
+		o11.addSubOrder(so14);
+		o12.addSubOrder(so14);
+		o13.addSubOrder(so15);
+		o14.addSubOrder(so16);
+		o15.addSubOrder(so17);
+		o16.addSubOrder(so18);
+		o17.addSubOrder(so19);
+		o15.addSubOrder(so20);
 	}
 }

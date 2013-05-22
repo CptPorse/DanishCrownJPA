@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import dao.Dao;
+
 // Author: Jens Nyberh Porse
 @Entity
 @Table(name = "Suborder")
@@ -69,6 +71,7 @@ public class SubOrder
 	public void setLoaded(boolean isLoaded)
 	{
 		this.isLoaded = isLoaded;
+		Dao.updateDatabase(this);
 	}
 
 	public boolean isHighPriority()
@@ -79,6 +82,7 @@ public class SubOrder
 	public void setHighPriority(boolean highPriority)
 	{
 		this.highPriority = highPriority;
+		Dao.updateDatabase(this);
 	}
 
 	public double getEstimatedWeight()
@@ -89,6 +93,7 @@ public class SubOrder
 	public void setEstimatedWeight(double estimatedWeight)
 	{
 		this.estimatedWeight = estimatedWeight;
+		Dao.updateDatabase(this);
 	}
 
 	public int getEstimatedLoadingTime()
@@ -99,6 +104,7 @@ public class SubOrder
 	public void setEstimatedLoadingTime(int estimatedLoadingTime)
 	{
 		this.estimatedLoadingTime = estimatedLoadingTime;
+		Dao.updateDatabase(this);
 	}
 
 	public Order getOrder()
@@ -109,6 +115,7 @@ public class SubOrder
 	public void setOrder(Order order)
 	{
 		this.order = order;
+		Dao.updateDatabase(this);
 	}
 
 	public Trailer getTrailer()
@@ -119,6 +126,7 @@ public class SubOrder
 	public void setTrailer(Trailer trailer)
 	{
 		this.trailer = trailer;
+		Dao.updateDatabase(this);
 	}
 
 	public ProductType getProductType()
@@ -129,6 +137,7 @@ public class SubOrder
 	public void setProductType(ProductType productType)
 	{
 		this.productType = productType;
+		Dao.updateDatabase(this);
 	}
 
 	public Date getEarliestLoadingTime()
@@ -139,6 +148,7 @@ public class SubOrder
 	public void setEarliestLoadingTime(Date earliestLoadingTime)
 	{
 		this.earliestLoadingTime = earliestLoadingTime;
+		Dao.updateDatabase(this);
 	}
 
 	public LoadingInfo getLoadingInfo()
@@ -149,6 +159,7 @@ public class SubOrder
 	public void setLoadingInfo(LoadingInfo loadingInfo)
 	{
 		this.loadingInfo = loadingInfo;
+		Dao.updateDatabase(this);
 	}
 
 	@Override

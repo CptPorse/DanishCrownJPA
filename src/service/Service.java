@@ -80,8 +80,12 @@ public class Service
 	public static void sortTrailerArrival()
 	{
 
+		System.out.println("Began sortTrailerArrival()");
 		ArrayList<Trailer> trailers = new ArrayList<Trailer>();
 		trailers.addAll(Dao.getTrailer());
+		System.out.println("Made list of trailer");
+		System.out.println(trailers);
+		System.out.println(trailers.get(0).getTimeOfArrival());
 
 		int position, scan;
 		for (position = trailers.size() - 1; position >= 0; position--) {

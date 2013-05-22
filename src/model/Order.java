@@ -17,6 +17,8 @@ import javax.persistence.TemporalType;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+import dao.Dao;
+
 @NonNullByDefault
 @Entity
 @Table(name = "\"Order\"")
@@ -55,6 +57,7 @@ public class Order
 	public void setOrderNumber(int orderNumber)
 	{
 		this.orderNumber = orderNumber;
+		Dao.updateDatabase(this);
 	}
 
 	public double getWeightMarginPercent()
@@ -65,6 +68,7 @@ public class Order
 	public void setWeightMarginPercent(double weightMarginPercent)
 	{
 		this.weightMarginPercent = weightMarginPercent;
+		Dao.updateDatabase(this);
 	}
 
 	public double getWeightMarginKilo()
@@ -75,6 +79,7 @@ public class Order
 	public void setWeightMarginKilo(double weightMarginKilo)
 	{
 		this.weightMarginKilo = weightMarginKilo;
+		Dao.updateDatabase(this);
 	}
 
 	public Date getLoadingDate()
@@ -85,6 +90,7 @@ public class Order
 	public void setLoadingDate(Date loadingDate)
 	{
 		this.loadingDate = loadingDate;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -104,6 +110,7 @@ public class Order
 		subOrder.setOrder(this);
 		weightMarginKilo = calculateWeightMargin();
 		subOrder.getTrailer().setTrailerState(TrailerState.ENROUTE);
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -112,6 +119,7 @@ public class Order
 	public void removeSubOrder(SubOrder subOrder)
 	{
 		subOrders.remove(subOrder);
+		Dao.updateDatabase(this);
 	}
 
 	private double calculateWeightMargin()

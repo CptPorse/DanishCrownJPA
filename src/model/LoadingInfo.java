@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 import service.Service;
+import dao.Dao;
 
 //Author: Jens Nyberg Porse
 @NonNullByDefault
@@ -65,6 +66,7 @@ public class LoadingInfo
 	public void setTimeOfLoadingStart(Date timeOfLoadingStart)
 	{
 		this.timeOfLoadingStart = timeOfLoadingStart;
+		Dao.updateDatabase(this);
 	}
 
 	public Date getTimeOfLoadingEnd()
@@ -75,6 +77,7 @@ public class LoadingInfo
 	public void setTimeOfLoadingEnd(Date timeOfLoadingEnd)
 	{
 		this.timeOfLoadingEnd = timeOfLoadingEnd;
+		Dao.updateDatabase(this);
 	}
 
 	public SubOrder getSubOrder()
@@ -85,6 +88,7 @@ public class LoadingInfo
 	public void setSubOrder(SubOrder subOrder)
 	{
 		this.subOrder = subOrder;
+		Dao.updateDatabase(this);
 	}
 
 	public LoadingBay getLoadingBay()
@@ -95,6 +99,7 @@ public class LoadingInfo
 	public void setLoadingBay(LoadingBay loadingBay)
 	{
 		this.loadingBay = loadingBay;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -112,6 +117,7 @@ public class LoadingInfo
 	public void setState(LoadingInfoState state)
 	{
 		this.state = state;
+		Dao.updateDatabase(this);
 	}
 
 	/**

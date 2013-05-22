@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+import dao.Dao;
+
 @NonNullByDefault
 @Entity
 @Table(name = "Driver")
@@ -51,6 +53,8 @@ public class Driver
 	public void setName(String name)
 	{
 		this.name = name;
+		Dao.updateDatabase(this);
+
 	}
 
 	public String getPhoneNumber()
@@ -61,6 +65,7 @@ public class Driver
 	public void setPhoneNumber(String phoneNumber)
 	{
 		this.phoneNumber = phoneNumber;
+		Dao.updateDatabase(this);
 	}
 
 	public String getLicensePlate()
@@ -71,6 +76,7 @@ public class Driver
 	public void setLicensePlate(String licensePlate)
 	{
 		this.licensePlate = licensePlate;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -88,6 +94,7 @@ public class Driver
 	public void setTrailer(Trailer trailer)
 	{
 		this.trailer = trailer;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -96,6 +103,7 @@ public class Driver
 	public void clearTrailer()
 	{
 		this.trailer = null;
+		Dao.updateDatabase(this);
 	}
 
 	@Override

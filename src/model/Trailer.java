@@ -87,6 +87,7 @@ public class Trailer
 	public void setTrailerState(TrailerState trailerState)
 	{
 		this.trailerState = trailerState;
+		Dao.updateDatabase(this);
 	}
 
 	public String getTrailerID()
@@ -97,6 +98,7 @@ public class Trailer
 	public void setTrailerID(String trailerID)
 	{
 		this.trailerID = trailerID;
+		Dao.updateDatabase(this);
 	}
 
 	public Date getTimeOfArrival()
@@ -107,6 +109,7 @@ public class Trailer
 	public void setTimeOfArrival(Date timeOfArrival)
 	{
 		this.timeOfArrival = timeOfArrival;
+		Dao.updateDatabase(this);
 	}
 
 	@Nullable
@@ -118,6 +121,7 @@ public class Trailer
 	public void setTimeOfDeparture(Date timeOfDeparture)
 	{
 		this.timeOfDeparture = timeOfDeparture;
+		Dao.updateDatabase(this);
 	}
 
 	public double getWeightCurrent()
@@ -128,6 +132,7 @@ public class Trailer
 	public void setWeightCurrent(double weightCurrent)
 	{
 		this.weightCurrent = weightCurrent;
+		Dao.updateDatabase(this);
 	}
 
 	public double getWeightMax()
@@ -138,6 +143,7 @@ public class Trailer
 	public void setWeightMax(double weightMax)
 	{
 		this.weightMax = weightMax;
+		Dao.updateDatabase(this);
 	}
 
 	@Nullable
@@ -149,11 +155,13 @@ public class Trailer
 	public void setDriver(Driver driver)
 	{
 		this.driver = driver;
+		Dao.updateDatabase(this);
 	}
 
 	public void clearDriver()
 	{
 		this.driver = null;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -170,11 +178,13 @@ public class Trailer
 	public void setLoadingBay(@Nullable LoadingBay loadingBay)
 	{
 		this.loadingBay = loadingBay;
+		Dao.updateDatabase(this);
 	}
 
 	public void clearLoadingBay()
 	{
 		this.loadingBay = null;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -191,6 +201,7 @@ public class Trailer
 	public void addProductType(ProductType productType)
 	{
 		productTypes.add(productType);
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -199,6 +210,7 @@ public class Trailer
 	public void removeProductType(ProductType productType)
 	{
 		productTypes.remove(productType);
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -217,6 +229,7 @@ public class Trailer
 		subOrders.add(subOrder);
 		//Updates the current weight of the trailer
 		weightCurrent += subOrder.getEstimatedWeight();
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -225,6 +238,7 @@ public class Trailer
 	public void removeSubOrder(SubOrder subOrder)
 	{
 		subOrders.remove(subOrder);
+		Dao.updateDatabase(this);
 	}
 
 	public void registerArrival()

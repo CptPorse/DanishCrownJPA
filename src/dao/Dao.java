@@ -18,8 +18,8 @@ import model.Trailer;
 public class Dao
 {
 
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("dc");
-	private static EntityManager em = emf.createEntityManager();
+	public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("dc");
+	public static EntityManager em = emf.createEntityManager();
 
 	/**
 	 * Returns a list of all productTypes in the database.
@@ -247,6 +247,13 @@ public class Dao
 		em.getTransaction().begin();
 		em.remove(loadingBay);
 		em.getTransaction().commit();
+	}
+
+	public static void updateDatabase(Object o)
+	{
+		Dao.em.getTransaction().begin();
+		Dao.em.merge(o);
+		Dao.em.getTransaction().commit();
 	}
 
 }

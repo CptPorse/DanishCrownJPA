@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 import service.Service;
+import dao.Dao;
 
 //Author: Jens Nyberg Porse
 @NonNullByDefault
@@ -64,6 +65,7 @@ public class LoadingBay
 	public void setLoadingBayNumber(int loadingBayNumber)
 	{
 		this.loadingBayNumber = loadingBayNumber;
+		Dao.updateDatabase(this);
 	}
 
 	public boolean isIsloading()
@@ -74,6 +76,7 @@ public class LoadingBay
 	public void setIsloading(boolean isloading)
 	{
 		this.isloading = isloading;
+		Dao.updateDatabase(this);
 	}
 
 	public ProductType getProductType()
@@ -84,6 +87,7 @@ public class LoadingBay
 	public void setProductType(ProductType productType)
 	{
 		this.productType = productType;
+		Dao.updateDatabase(this);
 	}
 
 	public Date getNextAvailableTime()
@@ -94,6 +98,7 @@ public class LoadingBay
 	public void setNextAvailableTime(Date nextAvailableTime)
 	{
 		this.nextAvailableTime = nextAvailableTime;
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -110,6 +115,7 @@ public class LoadingBay
 	public void addLoadingInfo(LoadingInfo loadingInfo)
 	{
 		loadingInfos.add(loadingInfo);
+		Dao.updateDatabase(this);
 	}
 
 	/**
@@ -118,6 +124,7 @@ public class LoadingBay
 	public void removeLoadingInfo(LoadingInfo loadingInfo)
 	{
 		loadingInfos.remove(loadingInfo);
+		Dao.updateDatabase(this);
 	}
 
 	/**
